@@ -1,16 +1,3 @@
-
-
-# from fastapi import FastAPI
-
-# app = FastAPI()
-
-# @app.get("/")
-# def root():
-#     return {"message": "Hello, FastAPI"}
-
-# /////////////////////main code ///////////////////////////
-
-
 from fastapi import FastAPI, Query, Header,Form, HTTPException
 from fastapi.staticfiles import StaticFiles
 # from req.MultiplyRequest import MultiplyRequest
@@ -22,6 +9,11 @@ from app.route.MovieRouter import MovieRouter
 # from route.UserRouter import UserRouter  
 # from route.PdfGenRouter import PdfGenRouter
 # from route.AdminRouter import AdminRouter
+from app.route.ProductRouter import ProductRouter
+from app.db.config import get_engine, execute_ddl
+# Call the Engine
+engine = get_engine()
+execute_ddl(engine) 
 
 import os
 UPLOAD_DIRECTORY = "uploaded_images"
@@ -29,19 +21,15 @@ UPLOAD_DIRECTORY = "uploaded_images"
 app = FastAPI()
 # app.mount("/uploaded_images", StaticFiles(directory="uploaded_images"), name="uploaded_images")
 movieRouter=MovieRouter()
-# fileUploaderRouter=FileUploaderRouter()
-# userRouter=UserRouter()
-# pdfGenRouter=PdfGenRouter()
-# adminRouter=AdminRouter()
+productRouter=ProductRouter()
+
 
 
 app.include_router(movieRouter.router)
+app.include_router(productRouter.router)
 # app.include_router(fileUploaderRouter.router)
-# app.include_router(userRouter.router)
 # app.include_router(pdfGenRouter.router)
 # app.include_router(adminRouter.router)
-
-
 
 # Add The ROUTE
 @app.get("/")
