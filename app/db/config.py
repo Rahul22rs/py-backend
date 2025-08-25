@@ -3,7 +3,7 @@ from sqlalchemy import Engine
 from sqlalchemy.orm import Session
 from app.models.base import Base
 
-CONN_STRING = "postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/localdb"
+CONN_STRING = "postgresql+psycopg2://postgres:AmarSinghp#s2s1@43.205.33.196:5432/jrp_db"
 
 def get_engine() -> Engine:
     return create_engine(CONN_STRING, echo=False)
